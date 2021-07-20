@@ -1,0 +1,23 @@
+version: "3"
+services:
+  production:
+    image: pautavotacao-api:V1.0
+    volumes:
+      - $HOME/.aws/credentials_mbtiles:/root/.aws/credentials
+    environment:
+      DB_URL: "jdbc:postgresql://tuffi.db.elephantsql.com:5432/pmozrqtu?currentSchema=votacao"
+      DB_USER: "pmozrqtu"
+      DB_PASSWD: "rBZ2Knwktgv_HB7VF1SCLNE2qYF8xkm_"
+    ports:
+      - "4445:4445"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "500k"
+        max-file: "10"
+    deploy:
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          memory: 1024M

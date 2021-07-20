@@ -1,0 +1,45 @@
+info:
+  app:
+    name: Votação
+
+server:
+  port: ${PORT:4445}
+
+spring:
+  profiles:
+    active: ${PROFILE:production}
+---
+
+spring:
+  profiles: production
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${DB_URL:jdbc:postgresql://tuffi.db.elephantsql.com:5432/pmozrqtu?currentSchema=votacao}
+    username: ${DB_USER:pmozrqtu}
+    password: ${DB_PASSWD:rBZ2Knwktgv_HB7VF1SCLNE2qYF8xkm_}
+    hikari:
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      minimum-idle: 1
+      maximum-pool-size: 2
+
+  jpa:
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+configuration:
+  tempo-sessao-segundos: 60
+  service-url: https://user-info.herokuapp.com/users/
